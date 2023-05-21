@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -39,11 +38,7 @@ public class UsersService implements IUsersService {
             );
         }
 
-        return  usersMapper.usersEntityToUsersDto(
-                usersRepository.save(
-                        usersMapper.usersDtoToUsersEntity(usersDto)
-                )
-        );
+        return null;
     }
 
     @Override
