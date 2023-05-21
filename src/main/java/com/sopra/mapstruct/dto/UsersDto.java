@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,5 +18,5 @@ public class UsersDto {
     private int id;
     @NotNull (message = "fullName can not be null")
     private String fullName;
-    private List<RolesDto> rolesDtos;
+    private List<RolesDto> rolesDtos = new ArrayList<>();
 }

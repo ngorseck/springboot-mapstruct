@@ -20,8 +20,11 @@ public class UsersEntity {
     @Id
     private int id;
     private String fullName;
-    @OneToMany (mappedBy = "usersEntity")
+    @OneToMany (mappedBy = "usersEntity", fetch = FetchType.LAZY)
     private List<ProductsEntity> productsEntities;
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable (name="users_roles",
+            joinColumns = @JoinColumn(name="users_id", referencedColumnName="id"),
+            inverseJoinColumns = @JoinColumn(name="roles_id", referencedColumnName="id"))
     private List<RolesEntity> rolesEntities;
 }

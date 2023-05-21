@@ -46,40 +46,59 @@ public class MapstructApplication implements CommandLineRunner {
 
 		productsService.save(productsDto);*/
 
-		List<RolesDto> rolesDtos = new ArrayList<>();
+		List<RolesDto> rolesDtosSave = new ArrayList<>();
+		List<RolesDto> rolesDtosUpdate = new ArrayList<>();
 
 		RolesDto rolesDto = new RolesDto();
 		rolesDto.setId(1);
 		rolesDto.setName("ROLE_USER");
-		rolesService.save(rolesDto);
-		rolesDtos.add(rolesDto);
+		rolesDto = rolesService.save(rolesDto);
+		rolesDtosSave.add(rolesDto);
+		rolesDtosUpdate.add(rolesDto);
 
 		rolesDto = new RolesDto();
 		rolesDto.setId(2);
 		rolesDto.setName("ROLE_ADMIN");
-		rolesService.save(rolesDto);
-		rolesDtos.add(rolesDto);
+		rolesDto = rolesService.save(rolesDto);
+		rolesDtosSave.add(rolesDto);
 
 		rolesDto = new RolesDto();
 		rolesDto.setId(3);
 		rolesDto.setName("ROLE_TECH");
-		rolesService.save(rolesDto);
-		rolesDtos.add(rolesDto);
-
+		rolesDto = rolesService.save(rolesDto);
+		rolesDtosSave.add(rolesDto);
+		rolesDtosUpdate.add(rolesDto);
+		/**
+		 * Insert a new user
+		 */
 		UsersDto usersDto = new UsersDto();
 		usersDto.setId(1);
 		usersDto.setFullName("Ngor SECK");
-		usersDto.setRolesDtos(rolesDtos); // a revoir
+		usersDto.setRolesDtos(rolesDtosSave);
 		UsersDto usersDto1 = usersService.save(usersDto);
+		/**
+		 * update users
+		 */
+		usersDto.setFullName("Khadim SECK");
+		usersDto.setRolesDtos(rolesDtosUpdate);
+		//usersService.update(usersDto);
 
 		log.info("====================INFO USER==============");
 		log.info(usersDto1.getFullName() + usersDto1.getRolesDtos());
-
+		/**
+		 * Insert a new products
+		 */
 		ProductsDto productsDto = new ProductsDto();
 		productsDto.setRef("2324");
 		productsDto.setName("milk");
 		productsDto.setIdUser(1);
 
 		productsService.save(productsDto);
+
+		usersService.findAll().stream()
+				.forEach(
+						user-> user.getRolesDtos().stream()
+								.forEach(role -> System.out.println(role.getName()))
+				);
 	}
 }
