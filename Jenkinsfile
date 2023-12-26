@@ -9,9 +9,14 @@ pipeline {
         sh "mvn clean package -DskipTests"
       }
     }
+    stage('Build Docker image') {
+      steps {
+        sh "docker build -t springboot-mapstruct:v1 ."
+      }
+    }
     stage('Deploy') {
       steps {
-        sh "docker compose up -d --build"
+        sh "docker run --name springboot-mapstruct -d -p 8080:8080 springboot-mapstruct:v1"
       }
     }
   }
