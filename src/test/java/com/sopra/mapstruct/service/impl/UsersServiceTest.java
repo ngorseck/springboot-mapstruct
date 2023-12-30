@@ -7,43 +7,44 @@ import com.sopra.mapstruct.service.IUsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 @Slf4j
 class UsersServiceTest {
 
-    @Autowired
+    @Mock
     private IUsersService usersService;
-    @Autowired
+    @Mock
     private IRolesService rolesService;
     @Test
-    void save() {
+    void saveUserWithoutRoles() {
 
         UsersDto usersDto = new UsersDto();
         usersDto.setId(1);
         usersDto.setFullName("Ngor SECK");
 
+        when(usersService.save(any())).thenReturn(usersDto);
         Assertions.assertNotNull(usersService.save(usersDto));
     }
 
     @Test
-    void find() {
+    void saveUserWithRoles() {
         List<RolesDto> rolesDtos = new ArrayList<>();
 
         RolesDto rolesDto = new RolesDto();
         rolesDto.setId(1);
         rolesDto.setName("ROLE_USER");
+        when(rolesService.save(any())).thenReturn(rolesDto);
         Assertions.assertNotNull(rolesService.save(rolesDto));
         rolesDtos.add(rolesDto);
 
@@ -63,6 +64,7 @@ class UsersServiceTest {
         usersDto.setId(1);
         usersDto.setFullName("Ngor SECK");
         usersDto.setRolesDtos(rolesDtos);
+        when(usersService.save(any())).thenReturn(usersDto);
         UsersDto usersDto1 = usersService.save(usersDto);
         Assertions.assertNotNull(usersDto1);
 

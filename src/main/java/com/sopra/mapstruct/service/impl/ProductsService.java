@@ -5,8 +5,11 @@ import com.sopra.mapstruct.entities.ProductsEntity;
 import com.sopra.mapstruct.mapper.ProductsMapper;
 import com.sopra.mapstruct.repository.ProductsRepository;
 import com.sopra.mapstruct.service.IProductsService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -37,5 +40,10 @@ public class ProductsService implements IProductsService {
                         productsMapper.productsDtoToProductsEntity(productsDto)
                 )
         );
+    }
+
+    @Override
+    public List<ProductsDto> getAndOrderByUserEmail() {
+        return productsMapper.productsEntityListToProductsDtoList(productsRepository.search());
     }
 }

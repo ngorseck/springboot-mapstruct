@@ -74,8 +74,30 @@ public class MapstructApplication implements CommandLineRunner {
 		UsersDto usersDto = new UsersDto();
 		usersDto.setId(1);
 		usersDto.setFullName("Ngor SECK");
+		usersDto.setEmail("seck1@gmail.com");
 		usersDto.setRolesDtos(rolesDtosSave);
 		UsersDto usersDto1 = usersService.save(usersDto);
+
+		usersDto = new UsersDto();
+		usersDto.setId(2);
+		usersDto.setFullName("Moussa SECK");
+		usersDto.setEmail("seck2@gmail.com");
+		usersDto.setRolesDtos(rolesDtosSave);
+		usersService.save(usersDto);
+
+		usersDto = new UsersDto();
+		usersDto.setId(3);
+		usersDto.setFullName("Fatou SECK");
+		usersDto.setEmail("seck3@gmail.com");
+		usersDto.setRolesDtos(rolesDtosSave);
+		usersService.save(usersDto);
+
+		usersDto = new UsersDto();
+		usersDto.setId(4);
+		usersDto.setFullName("Oumar SECK");
+		usersDto.setEmail("seck4@gmail.com");
+		usersDto.setRolesDtos(rolesDtosSave);
+		usersService.save(usersDto);
 		/**
 		 * update users
 		 */
@@ -92,13 +114,35 @@ public class MapstructApplication implements CommandLineRunner {
 		productsDto.setRef("2324");
 		productsDto.setName("milk");
 		productsDto.setIdUser(1);
-
 		productsService.save(productsDto);
 
-		usersService.findAll().stream()
+		productsDto = new ProductsDto();
+		productsDto.setRef("2325");
+		productsDto.setName("banana");
+		productsDto.setIdUser(4);
+		productsService.save(productsDto);
+
+		productsDto = new ProductsDto();
+		productsDto.setRef("2326");
+		productsDto.setName("water");
+		productsDto.setIdUser(3);
+		productsService.save(productsDto);
+
+		productsDto = new ProductsDto();
+		productsDto.setRef("2327");
+		productsDto.setName("television");
+		productsDto.setIdUser(2);
+		productsService.save(productsDto);
+
+		/*usersService.findAll().stream()
 				.forEach(
 						user-> user.getRolesDtos().stream()
 								.forEach(role -> System.out.println(role.getName()))
-				);
+				);*/
+
+		productsService.getAndOrderByUserEmail().stream()
+						.forEach(
+										products -> System.out.println(products.getName() + "  " + products.getIdUser())
+						);
 	}
 }

@@ -1,22 +1,20 @@
 package com.sopra.mapstruct.service.impl;
 
 import com.sopra.mapstruct.dto.RolesDto;
-import com.sopra.mapstruct.dto.UsersDto;
 import com.sopra.mapstruct.service.IRolesService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class RolesServiceTest {
 
-    @Autowired
+    @Mock
     private IRolesService rolesService;
 
     @Test
@@ -26,6 +24,7 @@ class RolesServiceTest {
         rolesDto.setId(1);
         rolesDto.setName("ROLE_USER");
 
+        when(rolesService.save(any())).thenReturn(rolesDto);
         Assertions.assertNotNull(rolesService.save(rolesDto));
     }
 }

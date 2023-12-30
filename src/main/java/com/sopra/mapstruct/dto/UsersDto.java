@@ -18,5 +18,6 @@ public class UsersDto {
     private int id;
     @NotNull (message = "fullName can not be null")
     private String fullName;
+    private String email;
     private List<RolesDto> rolesDtos = new ArrayList<>();
 }

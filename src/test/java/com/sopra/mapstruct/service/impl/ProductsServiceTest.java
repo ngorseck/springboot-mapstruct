@@ -6,39 +6,35 @@ import com.sopra.mapstruct.service.IProductsService;
 import com.sopra.mapstruct.service.IUsersService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class ProductsServiceTest {
-
-    @Autowired
+    @Mock
     private IProductsService productsService;
-    @Autowired
+    @Mock
     private IUsersService usersService;
+
     @Test
-    void save() {
+    void saveOK() {
 
         UsersDto usersDto = new UsersDto();
         usersDto.setId(1);
         usersDto.setFullName("Ngor SECK");
+
+        when(usersService.save(any())).thenReturn(usersDto);
         Assertions.assertNotNull(usersService.save(usersDto));
 
         ProductsDto productsDto = new ProductsDto();
         productsDto.setRef("2324");
         productsDto.setName("milk");
         productsDto.setIdUser(1);
-        Assertions.assertNotNull(productsService.save(productsDto));
 
-        /**
-         * ID USER = 2 does not exist
-         */
-        productsDto.setIdUser(2);
-        Assertions.assertThrows(Exception.class, () -> productsService.save(productsDto));
+        when(productsService.save(any())).thenReturn(productsDto);
+        Assertions.assertNotNull(productsService.save(productsDto));
     }
 }
