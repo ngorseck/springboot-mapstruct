@@ -3,13 +3,15 @@ package com.sopra.mapstruct.mapper;
 import com.sopra.mapstruct.dto.ProductsDto;
 import com.sopra.mapstruct.entities.ProductsEntity;
 import com.sopra.mapstruct.entities.UsersEntity;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-20T21:34:52+0200",
-    comments = "version: 1.5.2.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
+    date = "2023-12-30T06:05:27+0100",
+    comments = "version: 1.5.2.Final, compiler: javac, environment: Java 17.0.9 (OpenLogic)"
 )
 @Component
 public class ProductsMapperImpl implements ProductsMapper {
@@ -42,6 +44,20 @@ public class ProductsMapperImpl implements ProductsMapper {
         productsDto.setName( productsEntity.getName() );
 
         return productsDto;
+    }
+
+    @Override
+    public List<ProductsDto> productsEntityListToProductsDtoList(List<ProductsEntity> productsEntities) {
+        if ( productsEntities == null ) {
+            return null;
+        }
+
+        List<ProductsDto> list = new ArrayList<ProductsDto>( productsEntities.size() );
+        for ( ProductsEntity productsEntity : productsEntities ) {
+            list.add( productsEntityToProductsDto( productsEntity ) );
+        }
+
+        return list;
     }
 
     protected UsersEntity productsDtoToUsersEntity(ProductsDto productsDto) {

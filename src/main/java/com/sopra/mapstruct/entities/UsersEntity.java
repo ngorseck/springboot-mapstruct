@@ -20,6 +20,7 @@ public class UsersEntity {
     @Id
     private int id;
     private String fullName;
+    private String email;
     @OneToMany (mappedBy = "usersEntity", fetch = FetchType.LAZY)
     private List<ProductsEntity> productsEntities;
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)

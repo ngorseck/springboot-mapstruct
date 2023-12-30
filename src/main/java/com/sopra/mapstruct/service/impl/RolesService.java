@@ -1,5 +1,6 @@
 package com.sopra.mapstruct.service.impl;
 
+import com.sopra.mapstruct.dao.IRolesDao;
 import com.sopra.mapstruct.dto.RolesDto;
 import com.sopra.mapstruct.mapper.RolesMapper;
 import com.sopra.mapstruct.repository.RolesRepository;
@@ -11,12 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class RolesService implements IRolesService {
 
-    private RolesRepository rolesRepository;
+    private IRolesDao rolesDao;
     private RolesMapper rolesMapper;
     @Override
     public RolesDto save(RolesDto rolesDto) {
         return rolesMapper.rolesEntityToRolesDto(
-                rolesRepository.save(
+                rolesDao.save(
                         rolesMapper.rolesDtoToRolesEntity(rolesDto)
                 )
         );
